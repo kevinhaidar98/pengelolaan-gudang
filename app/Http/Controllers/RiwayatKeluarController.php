@@ -7,6 +7,7 @@ use App\Models\RiwayatKeluar;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
+
 class RiwayatKeluarController extends Controller
 {
     public function __construct()
