@@ -1,0 +1,40 @@
+@extends('layout.index',['activePage'=>'barang'])
+@section('title','Tambah Barang')
+
+@section('content')
+
+    <div class="card card-primary">
+        <div class="card-header">
+        <h3 class="card-title">Tambah Barang</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+            </button>
+        </div>
+        </div>
+        <div class="card-body">
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{session('error')}}
+                </div>
+            @endif
+            <form action="{{route('barang.createbarang')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group {{ $errors->has('nama_barang') ? ' has-danger' : '' }}">
+                    <label for="inputName">Nama Barang</label>
+                    <input class="form-control {{ $errors->has('nama_barang') ? ' is-invalid' : '' }}" value="{{ old('nama_barang') }}"  placeholder="Nama Barang" type="text" name="nama_barang" id="nama_barang"/>
+                    @include('layout.alert',['field'=> 'nama_barang'])
+                </div>
+                <div class="form-group {{ $errors->has('jumlah') ? ' has-danger' : '' }}">
+                    <label for="inputUsername">Jumlah Barang</label>
+                    <input class="form-control {{ $errors->has('jumlah') ? ' is-invalid' : '' }}" value="{{ old('jumlah') }}"  placeholder="Jumlah" type="text" name="jumlah" id="jumlah"/>
+                    <p class="text-muted">Jumlah menggunakan satuan gelondong</p>
+                    @include('layout.alert',['field'=> 'jumlah'])
+                </div>
+                <input class="btn btn-primary" type="submit" value="Simpan" />
+            </form>
+            
+        <!-- /.card-body -->
+    </div>
+@endsection
