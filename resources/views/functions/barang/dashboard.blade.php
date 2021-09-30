@@ -30,10 +30,10 @@
               <thead>
                   <tr>
                       <th style="width: 20%">
-                          Nama Barang
+                          Kode Barang
                       </th>
-                      <th style="width: 10%">
-                          Jumlah
+                      <th style="width: 20%">
+                          Nama Barang
                       </th>
                       <th style="width: 20%; text-align: center">
                           Aksi
@@ -47,14 +47,14 @@
                 @else
                 @foreach ($barang as $item)
                   <tr>
+                      <td>
+                        {{$item->id}} 
+                      </td>
                       {{-- Nama --}}
                       <td>
                          {{$item->nama_barang}} 
                       </td>
                       {{-- Username --}}
-                      <td>
-                        {{$item->jumlah}} 
-                      </td>
                       {{-- Telepon --}}
                       {{-- Aksi --}}
                       <td class="project-actions text-center">

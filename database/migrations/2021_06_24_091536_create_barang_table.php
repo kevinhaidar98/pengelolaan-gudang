@@ -16,7 +16,6 @@ class CreateBarangTable extends Migration
         Schema::create('barang', function (Blueprint $table) {
             $table->id('id');
             $table->string('nama_barang');
-            $table->integer('jumlah');
             $table->timestamps();
         });
     }

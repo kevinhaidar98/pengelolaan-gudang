@@ -1,5 +1,5 @@
-@extends('layout.index',['activePage'=>'riwayatmasuk'])
-@section('title','Dasboard Riwayat Barang Masuk')
+@extends('layout.index',['activePage'=>'gudang'])
+@section('title','Dasboard Gudang')
 
 @section('content')
     @if(session('status'))
@@ -13,7 +13,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Daftar Barang</h3>
+          <h3 class="card-title">Gudang</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">

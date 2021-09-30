@@ -6,6 +6,7 @@ use App\Models\RiwayatMasuk;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Models\Lokasi;
 
 class RiwayatMasukController extends Controller
 {
@@ -21,12 +22,25 @@ class RiwayatMasukController extends Controller
     public function showRiwayatMasukList(Request $request)
     {
         $selection = $request->keyword;
-        if($selection){
-            $riwayat = RiwayatMasuk::where('tanggal_masuk', 'LIKE', "%$selection%")->paginate(10);
-        } else {
-            $riwayat = RiwayatMasuk::paginate(10);
-        }
-        return view('', ['riwayat_masuk'=> $riwayat]);
+        // if($selection){
+        //     $riwayat = RiwayatMasuk::where('tanggal_masuk', 'LIKE', "%$selection%")->paginate(10);
+        // } else {
+            $lokasi = Lokasi::with('barang')->find(1);
+            $barangs = [];
+            foreach($lokasi->barang as $barang){
+                $barangs[] = $barang;
+            }
+            
+            // foreach($lokasi->barang as $barang){
+            //     echo $barang->id_barang;
+            //     echo $barang->pivot->jumlah;
+            //     echo $barang->pivot->created_at;
+            // }
+            
+             dd($barangs);
+            //$riwayat = Lokasi::paginate(10);
+        // }
+        return view('', ['riwayat_masuk'=> $lokasi]);
     }
 
     public function createRiwayatMasuk(Request $request){

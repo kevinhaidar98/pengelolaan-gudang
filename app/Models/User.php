@@ -21,14 +21,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function riwayatMasuk(){
-        return $this->hasMany('Apps\Models\RiwayatMasuk');
-    }
-    public function riwayatKeluar(){
-        return $this->hasMany('Apps\Models\RiwayatKeluar');
+    public function transaksi(){
+        return $this->belongsToMany(Barang::class,'transaksi','id_user','id_barang')
+        ->withTimestamps()
+        ->withPivot(['kode_transaksi','jumlah','status','is_process','klien','tanggal']);
     }
     public function role(){
-        return $this->belongsTo('Apps\Models\Role');
+        return $this->belongsTo(Role::class);
     }
 
 }

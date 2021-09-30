@@ -17,7 +17,6 @@ class CreateLokasiTable extends Migration
             $table->id('id');
             $table->string('nama_letak');
             $table->integer('kapasitas');
-            $table->integer('isi');
             $table->timestamps();
         });
     }

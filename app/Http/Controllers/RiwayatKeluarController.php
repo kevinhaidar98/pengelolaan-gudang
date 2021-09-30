@@ -23,7 +23,7 @@ class RiwayatKeluarController extends Controller
     {
         $selection = $request->keyword;
         if($selection){
-            $riwayat = RiwayatKeluar::where('tanggal_keluar', 'LIKE', "%$selection%")->paginate(10);
+            $riwayat = RiwayatKeluar::where('tanggal', 'LIKE', "%$selection%")->paginate(10);
         } else {
             $riwayat = RiwayatKeluar::paginate(10);
         }

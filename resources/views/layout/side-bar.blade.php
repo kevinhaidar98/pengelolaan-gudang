@@ -28,6 +28,14 @@
             </a>
           </li>
           <li class="nav-item @if ($activePage == 'user') active @endif" >
+            <a class="nav-link" href="{{route('gudang.showgudang')}}">
+              <i class="nav-icon fas fa-archive"></i>
+              <p>
+                Gudang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item @if ($activePage == 'user') active @endif" >
             <a class="nav-link" href="{{route('barang.showbaranglist')}}">
               <i class="nav-icon fas fa-box"></i>
               <p>
@@ -35,20 +43,20 @@
               </p>
             </a>
           </li>
-          <li class="nav-item @if ($activePage == 'user') active @endif" >
-            <a class="nav-link" href="{{route('user.showuserlist')}}">
+          {{-- <li class="nav-item @if ($activePage == 'user') active @endif" >
+            <a class="nav-link" href="{{ route('masuk.showtranslist') }}">
               <i class="nav-icon fas fa-arrow-down"></i>
               <p>
-                Riwayat Masuk
+                Transaksi Masuk
               </p>
             </a>
-          </li>
+          </li> --}}
           @endif
           <li class="nav-item">
             <a href="pages/gallery.html" class="nav-link">
               <i class="nav-icon fas fa-arrow-up"></i>
               <p>
-                Riwayat Keluar
+                Transaksi Keluar
               </p>
             </a>
           </li>

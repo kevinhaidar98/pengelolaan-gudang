@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRiwayatMasukTable extends Migration
+class CreateTransaksiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,18 @@ class CreateRiwayatMasukTable extends Migration
      */
     public function up()
     {
-        Schema::create('riwayat_masuk', function (Blueprint $table) {
-            $table->id('id');
+        Schema::create('transaksi', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('id_barang')->unsigned();
             $table->foreign('id_barang')->references('id')->on('barang');
             $table->bigInteger('id_user')->unsigned();
             $table->foreign('id_user')->references('id')->on('users');
             $table->bigInteger('kode_transaksi');
             $table->integer('jumlah');
-            $table->date('tanggal_masuk');
+            $table->boolean('status');
+            $table->boolean('is_process')->default(false);
+            $table->string('klien');
+            $table->date('tanggal');
             $table->timestamps();
         });
     }
@@ -33,6 +36,6 @@ class CreateRiwayatMasukTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('riwayat_masuk');
+        Schema::dropIfExists('transaksi');
     }
 }

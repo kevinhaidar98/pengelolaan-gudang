@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\RiwayatMasukController;
+use App\Http\Controllers\StoringController; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,10 +32,18 @@ Route::group(['middleware'=>'auth'], function(){
     Route::group(['middleware'=>'superadmin','prefix'=>'barang'], function(){
         Route::get('/showbarang',[BarangController::class, 'showBarangList'])->name('barang.showbaranglist');
         Route::get('/addbarang',[BarangController::class,'showBarangForm'])->name('barang.addbarang');
-        Route::post('/storebarnag',[BarangController::class,'createBarang'])->name('barang.createbarang');
+        Route::post('/storebarang',[BarangController::class,'createBarang'])->name('barang.createbarang');
         Route::get('/editbarang/{id}',[BarangController::class,'editBarang'])->name('barang.editbarang');
         Route::post('/updatebarang/{id}',[BarangController::class,'updateBarang'])->name('barang.updatebarang');
         Route::get('/deletebarang/{id}',[BarangController::class,'destroyBarang'])->name('barang.deletebarang');
+    });
+    Route::group(['middleware'=>'superadmin','prefix'=>'gudang'], function(){
+        Route::get('/showgudang',[StoringController::class, 'showGudang'])->name('gudang.showgudang');
+        // Route::get('/addbarang',[BarangController::class,'showBarangForm'])->name('barang.addbarang');
+        // Route::post('/storebarang',[BarangController::class,'createBarang'])->name('barang.createbarang');
+        // Route::get('/editbarang/{id}',[BarangController::class,'editBarang'])->name('barang.editbarang');
+        // Route::post('/updatebarang/{id}',[BarangController::class,'updateBarang'])->name('barang.updatebarang');
+        // Route::get('/deletebarang/{id}',[BarangController::class,'destroyBarang'])->name('barang.deletebarang');
     });
 });
 

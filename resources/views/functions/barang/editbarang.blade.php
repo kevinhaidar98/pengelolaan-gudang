@@ -26,12 +26,6 @@
                     <input class="form-control {{ $errors->has('nama_barang') ? ' is-invalid' : '' }}" value="{{ $barang->nama_barang }}"  placeholder="Nama Barang" type="text" name="nama_barang" id="nama_barang"/>
                     @include('layout.alert',['field'=> 'nama_barang'])
                 </div>
-                <div class="form-group {{ $errors->has('jumlah') ? ' has-danger' : '' }}">
-                    <label for="inputUsername">Jumlah Barang</label>
-                    <input class="form-control {{ $errors->has('jumlah') ? ' is-invalid' : '' }}" value="{{ $barang->jumlah }}"  placeholder="Jumlah" type="text" name="jumlah" id="jumlah"/>
-                    <p class="text-muted">Jumlah menggunakan satuan gelondong</p>
-                    @include('layout.alert',['field'=> 'jumlah'])
-                </div>
                 <input class="btn btn-primary" type="submit" value="Simpan" />
             </form>
             

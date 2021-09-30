@@ -35,17 +35,14 @@ class BarangController extends Controller
     public function createBarang(Request $request){
         $validate = Validator::make($request->all(), [
             'nama_barang'=>'required|min:5',
-            'jumlah' => 'required',
         ], [
             'nama_barang.required'=>'Nama barang harus diisi',
-            'jumlah.required' => 'Jumlah harus diisi',
         ]);
         if($validate->fails()){
             return redirect()->back()->with('error','Semua field tidak boleh kosong');
         }else{
             $barang = new Barang();
             $barang->nama_barang = $request->nama_barang;
-            $barang->jumlah = $request->jumlah;
             $barang->save();
             return redirect()->route('barang.showbaranglist')->with('status', 'Sukses menambahkan data barang');
         }
@@ -58,18 +55,15 @@ class BarangController extends Controller
 
     public function updateBarang(Request $request, $id){
         $validate = Validator::make($request->all(), [
-            'nama_barang'=>'required|min:5',
-            'jumlah' => 'required',
+            'nama_barang'=>'required|min:5'
         ], [
             'nama_barang.required'=>'Nama barang harus diisi',
-            'jumlah.required' => 'Jumlah harus diisi',
         ]);
         if($validate->fails()){
             return redirect()->back()->with('error','Semua field tidak boleh kosong');
         }else{
             $barang = Barang::findOrFail($id);
             $barang->nama_barang = $request->nama_barang;
-            $barang->jumlah = $request->jumlah;
             $barang->save();
             return redirect()->route('barang.showbaranglist')->with('status', 'Sukses menambahkan data barang');
         }

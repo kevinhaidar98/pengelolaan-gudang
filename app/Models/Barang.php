@@ -8,10 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Barang extends Model
 {
     use HasFactory;
-    protected $table="barang";
+    protected $table = "barang";
     protected $primaryKey = "id";
-
-    public function alokasi(){
-        return $this->belongsToMany('App\Models\Alokasi','alokasi','id_barang','id_lokasi');
+    //protected $fillable = "nama_barang";
+    public function lokasi()
+    {
+        return $this->belongsToMany(Lokasi::class, 'lokasi_barang', 'id_barang', 'id_lokasi')
+            ->withTimestamps()
+            ->withPivot(['jumlah']);
+    }
+    public function user()
+    {
+        return $this->belongsToMany(User::class, 'transaksi', 'id_barang', 'id_user')
+            ->withTimestamps()
+            ->withPivot(['kode_transaksi', 'jumlah', 'status', 'is_process', 'klien', 'tanggal']);
     }
 }
