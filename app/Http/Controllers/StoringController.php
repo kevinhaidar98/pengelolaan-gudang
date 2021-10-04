@@ -20,23 +20,26 @@ class StoringController extends Controller
     }
     public function showGudang(Request $request)
     {
-        $lokasi = Lokasi::with('barang')->get();
+        $lokasi = Lokasi::get();
         
-        dd($lokasi);
+        //dd($lokasi);
         return view('functions.gudang.dashboard', ['lokasi' => $lokasi]);
     }
     public function showIsiGudang(Request $request)
     {
-        $selection = $request->keyword;
         // if($selection){
         //     $riwayat = RiwayatMasuk::where('tanggal_masuk', 'LIKE', "%$selection%")->paginate(10);
         // } else {
-        $lokasi = Lokasi::with('barang')->find(1);
+        $lokasi = Lokasi::findOrFail($request->id);
         $barangs = [];
         foreach ($lokasi->barang as $barang) {
-            $barangs[] = $barang;
+            $barang['jumlah'] = $barang->pivot->jumlah;
+            $barang['nama_letak'] = $request->nama_letak;
+            array_push($barangs,$barang);
         }
-
+        //dd($barangs);
+        return view('functions.gudang.isigudang', ['items' => $barangs]);
+        // functions.gudang.dashboard
         // foreach($lokasi->barang as $barang){
         //     echo $barang->id_barang;
         //     echo $barang->pivot->jumlah;
@@ -46,6 +49,6 @@ class StoringController extends Controller
         //dd($barangs);
         //$riwayat = Lokasi::paginate(10);
         // }
-        return view('functions.gudang.dashboard', ['riwayat_masuk' => $lokasi]);
+        
     }
 }

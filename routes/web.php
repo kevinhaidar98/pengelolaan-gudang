@@ -39,6 +39,7 @@ Route::group(['middleware'=>'auth'], function(){
     });
     Route::group(['middleware'=>'superadmin','prefix'=>'gudang'], function(){
         Route::get('/showgudang',[StoringController::class, 'showGudang'])->name('gudang.showgudang');
+        Route::get('/showisigudang/{id}/ruang/{nama_letak}',[StoringController::class, 'showIsiGudang'])->name('gudang.showisigudang');
         // Route::get('/addbarang',[BarangController::class,'showBarangForm'])->name('barang.addbarang');
         // Route::post('/storebarang',[BarangController::class,'createBarang'])->name('barang.createbarang');
         // Route::get('/editbarang/{id}',[BarangController::class,'editBarang'])->name('barang.editbarang');

@@ -13,7 +13,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Gudang</h3>
+                <h3 class="card-title">Ruang - Letak</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -28,22 +28,28 @@
                 {{-- Ruang A --}}
                 <div class="row p-2">
                     @foreach ($lokasi as $item)
-                    <a class="col m-2 text-center border border-primary" href="#1">
-                        <input type="text" class="knob" value="30" data-width="120" data-height="120"
-                            data-fgColor="#3c8dbc" data-readonly="true">
-                        <div class="knob-label">{{ $item->nama_letak }}</div>
-                    </a>
+                        @php $jumlah=0 @endphp
+                        @foreach ($item->barang as $detail)
+                            @php
+                                $jumlah += $detail->pivot->jumlah;
+                            @endphp
+                        @endforeach
+                        <a class="col m-2 text-center border border-primary" href="{{ route('gudang.showisigudang',['id'=>$item->id,'nama_letak'=>$item->nama_letak])}}">
+                            <input type="text" class="knob" value="{{ $jumlah }}" data-width="120"
+                                data-height="120" data-fgColor="#3c8dbc" data-readonly="true" data-max="20">
+                            <div class="knob-label">{{ $item->nama_letak }}</div>
+                        </a>
                     @endforeach
-                    <a class="col m-2 text-center border border-primary" href="#1">
+                    {{-- <a class="col m-2 text-center border border-primary" href="#1">
                         <input type="text" class="knob" value="30" data-width="120" data-height="120"
                             data-fgColor="#3c8dbc" data-readonly="true">
                         <div class="knob-label">A1</div>
-                    </a>
-                    
+                    </a> --}}
+
 
                     <!-- ./col -->
                 </div>
-                
+
             </div>
             <!-- /.card-body -->
         </div>
@@ -72,6 +78,3 @@
         });
     </script>
 @endsection
-
-
-
