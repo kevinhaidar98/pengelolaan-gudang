@@ -1,5 +1,5 @@
 @extends('layout.index',['activePage'=>'user'])
-@section('title','Isi Ruang - {{ $items->nama_letak }}')
+@section('title','Isi Ruang - '.request()->route('nama_letak'))
 @section('content')
     @if(session('status'))
     <div class="alert alert-success">
@@ -43,9 +43,12 @@
                   </tr>
               </thead>
               {{-- Table Body --}}
-              @if($items->count() == 0)
+              @php
+                  $jumlah = 0;
+              @endphp
+              @if(count($items) == 0)
               <tbody>
-                <td colspan="6" style="text-align: center;padding-top: 3%">Tidak ada data user yang dibuat</td>
+                <td colspan="6" style="text-align: center;padding-top: 3%">Tidak ada data barang yang tersimpan</td>
                 @else
                 @php
                     $isFull = '';
@@ -93,13 +96,13 @@
       @if ($jumlah == 20)
       <div class="row">
         <div class="col-6">
-          <a href="{{route('user.adduser')}}" class="btn btn-primary disabled">Tambah Barang</a>
+          <a href="{{route('gudang.addisigudang',['id' => request()->route('id'),'nama_letak' => request()->route('nama_letak')])}}" class="btn btn-primary disabled">Tambah Barang</a>
         </div>
       </div>
       @else
       <div class="row">
         <div class="col-6">
-          <a href="{{route('user.adduser')}}" class="btn btn-primary">Tambah Barang</a>
+          <a href="{{route('gudang.addisigudang',['id' => request()->route('id'),'nama_letak' => request()->route('nama_letak')])}}" class="btn btn-primary">Tambah Barang</a>
         </div>
       </div>
       @endif

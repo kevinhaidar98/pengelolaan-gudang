@@ -34,7 +34,6 @@ class StoringController extends Controller
         $barangs = [];
         foreach ($lokasi->barang as $barang) {
             $barang['jumlah'] = $barang->pivot->jumlah;
-            $barang['nama_letak'] = $request->nama_letak;
             array_push($barangs,$barang);
         }
         //dd($barangs);
@@ -50,5 +49,9 @@ class StoringController extends Controller
         //$riwayat = Lokasi::paginate(10);
         // }
         
+    }
+    public function addIsiGudang(Request $request)
+    {
+        return view('functions.gudang.addisigudang');
     }
 }
