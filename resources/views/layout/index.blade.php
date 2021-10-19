@@ -14,6 +14,7 @@
     @stack('custom-css')
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
@@ -27,8 +28,12 @@
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"> --}}
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+    <!-- jQuery -->
+    
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -77,8 +82,7 @@
     </div>
     <!-- ./wrapper -->
 
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    
     @stack('custom-script')
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>

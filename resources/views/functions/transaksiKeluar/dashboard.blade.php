@@ -165,12 +165,13 @@
             </div>
         </div>
     </section>
-    <script src="{{ asset('plugins/inputmask/inputmask.min.js') }}"></script>
-    <script src="{{ asset('plugins/inputmask/jquery.inputmask.min.js') }}"></script>
     <script type="text/javascript">
-        $('#reservationdate').datetimepicker({
-            format: 'L'
-        });
+        $(function() {
+            $('#reservationdate').datetimepicker({
+                format: 'YYYY-MM-DD'
+            })
+        })
+
         // $('.delete-barang').click(function() {
         //     var barangId = $(this).data('id');
         //     console.log(barangId)
@@ -186,8 +187,8 @@
         //         }
         //     });
         // });
-        $('#datetime').inputmask('dd/mm/yyyy', {
-            'placeholder': 'dd/mm/yyyy'
-        })
+        // $('#datetime').inputmask('dd/mm/yyyy', {
+        //     'placeholder': 'dd/mm/yyyy'
+        // })
     </script>
 @endsection
