@@ -29,13 +29,13 @@
             {{-- Header Table --}}
               <thead>
                   <tr>
-                      <th style="width: 20%">
+                      <th style="width: 5%; text-align: center">
                           Kode Barang
                       </th>
-                      <th style="width: 20%">
+                      <th style="width: 30%">
                           Nama Barang
                       </th>
-                      <th style="width: 20%; text-align: center">
+                      <th style="width: 10%; text-align: center">
                           Aksi
                       </th>
                   </tr>
@@ -47,17 +47,14 @@
                 @else
                 @foreach ($barang as $item)
                   <tr>
-                      <td>
+                      <td style="text-align: center">
                         {{$item->id}} 
                       </td>
                       {{-- Nama --}}
                       <td>
                          {{$item->nama_barang}} 
                       </td>
-                      {{-- Username --}}
-                      {{-- Telepon --}}
-                      {{-- Aksi --}}
-                      <td class="project-actions text-center">
+                      <td class="project-actions text-right">
                           <a class="btn btn-info btn-sm" href="{{route('barang.editbarang',[$item->id])}}">
                               <i class="fas fa-pencil-alt">
                               </i>

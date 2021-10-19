@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RiwayatMasuk;
+use App\Models\Barang;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -19,28 +19,38 @@ class RiwayatMasukController extends Controller
         }
     }
 
-    public function showRiwayatMasukList(Request $request)
+    public function showTransaksiMasukList(Request $request)
     {
         $selection = $request->keyword;
-        // if($selection){
-        //     $riwayat = RiwayatMasuk::where('tanggal_masuk', 'LIKE', "%$selection%")->paginate(10);
-        // } else {
-            $lokasi = Lokasi::with('barang')->find(1);
-            $barangs = [];
-            foreach($lokasi->barang as $barang){
-                $barangs[] = $barang;
-            }
+        $transaksi = DB::table('transaksi')
+                    ->join('users','users.id','=','transaksi.id_user')
+                    ->join('barang','barang.id','=','transaksi.id_barang')
+                    ->select('transaksi.*', 'users.nama as nama_user','barang.nama_barang as nama_barang')
+                    ->where('status','=','0')
+                    ->orderByDesc('tanggal')
+                    ->paginate(10);
+
+        //$barang = Barang::all();
+        // // if($selection){
+        // //     $riwayat = RiwayatMasuk::where('tanggal_masuk', 'LIKE', "%$selection%")->paginate(10);
+        // // } else {
+        //     $lokasi = Lokasi::with('barang')->find(1);
+        //     $barangs = [];
+        //     foreach($lokasi->barang as $barang){
+        //         $barangs[] = $barang;
+        //     }
             
-            // foreach($lokasi->barang as $barang){
-            //     echo $barang->id_barang;
-            //     echo $barang->pivot->jumlah;
-            //     echo $barang->pivot->created_at;
-            // }
+        //     // foreach($lokasi->barang as $barang){
+        //     //     echo $barang->id_barang;
+        //     //     echo $barang->pivot->jumlah;
+        //     //     echo $barang->pivot->created_at;
+        //     // }
             
-             dd($barangs);
-            //$riwayat = Lokasi::paginate(10);
-        // }
-        return view('', ['riwayat_masuk'=> $lokasi]);
+        //      dd($barangs);
+        //     //$riwayat = Lokasi::paginate(10);
+        // // }
+        //dd($transaksi);
+        return view('functions.transaksiMasuk.dashboard', ['transaksi'=> $transaksi]);
     }
 
     public function createRiwayatMasuk(Request $request){

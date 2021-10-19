@@ -43,28 +43,20 @@
               </p>
             </a>
           </li>
-          {{-- <li class="nav-item @if ($activePage == 'user') active @endif" >
-            <a class="nav-link" href="{{ route('masuk.showtranslist') }}">
+          <li class="nav-item @if ($activePage == 'user') active @endif" >
+            <a class="nav-link" href="{{ route('transaksimasuk.showtransaksimasuk') }}">
               <i class="nav-icon fas fa-arrow-down"></i>
               <p>
                 Transaksi Masuk
               </p>
             </a>
-          </li> --}}
+          </li>
           @endif
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="{{ route('transaksikeluar.showtransaksikeluar') }}" class="nav-link">
               <i class="nav-icon fas fa-arrow-up"></i>
               <p>
                 Transaksi Keluar
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/kanban.html" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-                Kanban Board
               </p>
             </a>
           </li>

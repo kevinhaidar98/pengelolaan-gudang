@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\RiwayatMasukController;
+use App\Http\Controllers\RiwayatKeluarController;
 use App\Http\Controllers\StoringController; 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,32 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/showgudang',[StoringController::class, 'showGudang'])->name('gudang.showgudang');
         Route::get('/showisigudang/{id}/ruang/{nama_letak}',[StoringController::class, 'showIsiGudang'])->name('gudang.showisigudang');
         Route::get('/showisigudang/{id}/ruang/{nama_letak}/addisigudang',[StoringController::class, 'addIsiGudang'])->name('gudang.addisigudang');
+        Route::get('/barang/list',[StoringController::class,'getBarangList'])->name('gudang.baranglist');
+        Route::post('/storeisigudang',[StoringController::class,'createIsiGudang'])->name('gudang.createisigudang');
+        // Route::get('/addbarang',[BarangController::class,'showBarangForm'])->name('barang.addbarang');
+        // Route::post('/storebarang',[BarangController::class,'createBarang'])->name('barang.createbarang');
+        // Route::get('/editbarang/{id}',[BarangController::class,'editBarang'])->name('barang.editbarang');
+        // Route::post('/updatebarang/{id}',[BarangController::class,'updateBarang'])->name('barang.updatebarang');
+        // Route::get('/deletebarang/{id}',[BarangController::class,'destroyBarang'])->name('barang.deletebarang');
+    });
+    Route::group(['middleware'=>'superadmin','prefix'=>'transaksi-masuk'], function(){
+        Route::get('/showtrans',[RiwayatMasukController::class, 'showTransaksiMasukList'])->name('transaksimasuk.showtransaksimasuk');
+        // Route::get('/showisigudang/{id}/ruang/{nama_letak}',[StoringController::class, 'showIsiGudang'])->name('gudang.showisigudang');
+        // Route::get('/showisigudang/{id}/ruang/{nama_letak}/addisigudang',[StoringController::class, 'addIsiGudang'])->name('gudang.addisigudang');
+        // Route::get('/barang/list',[StoringController::class,'getBarangList'])->name('gudang.baranglist');
+        // Route::post('/storeisigudang',[StoringController::class,'createIsiGudang'])->name('gudang.createisigudang');
+        // Route::get('/addbarang',[BarangController::class,'showBarangForm'])->name('barang.addbarang');
+        // Route::post('/storebarang',[BarangController::class,'createBarang'])->name('barang.createbarang');
+        // Route::get('/editbarang/{id}',[BarangController::class,'editBarang'])->name('barang.editbarang');
+        // Route::post('/updatebarang/{id}',[BarangController::class,'updateBarang'])->name('barang.updatebarang');
+        // Route::get('/deletebarang/{id}',[BarangController::class,'destroyBarang'])->name('barang.deletebarang');
+    });
+    Route::group(['middleware'=>'superadmin','prefix'=>'transaksi-keluar'], function(){
+        Route::get('/showtrans',[RiwayatKeluarController::class, 'showTransaksiKeluarList'])->name('transaksikeluar.showtransaksikeluar');
+        // Route::get('/showisigudang/{id}/ruang/{nama_letak}',[StoringController::class, 'showIsiGudang'])->name('gudang.showisigudang');
+        // Route::get('/showisigudang/{id}/ruang/{nama_letak}/addisigudang',[StoringController::class, 'addIsiGudang'])->name('gudang.addisigudang');
+        // Route::get('/barang/list',[StoringController::class,'getBarangList'])->name('gudang.baranglist');
+        // Route::post('/storeisigudang',[StoringController::class,'createIsiGudang'])->name('gudang.createisigudang');
         // Route::get('/addbarang',[BarangController::class,'showBarangForm'])->name('barang.addbarang');
         // Route::post('/storebarang',[BarangController::class,'createBarang'])->name('barang.createbarang');
         // Route::get('/editbarang/{id}',[BarangController::class,'editBarang'])->name('barang.editbarang');
@@ -48,4 +75,5 @@ Route::group(['middleware'=>'auth'], function(){
         // Route::get('/deletebarang/{id}',[BarangController::class,'destroyBarang'])->name('barang.deletebarang');
     });
 });
+
 

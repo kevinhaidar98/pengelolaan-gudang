@@ -28,16 +28,16 @@
             {{-- Header Table --}}
               <thead>
                   <tr>
-                      <th style="width: 20%">
+                      <th style="width: 5%; text-align: center">
                           Kode Barang
                       </th>
-                      <th style="width: 10%">
+                      <th style="width: 30%">
                           Nama Barang
                       </th>
-                      <th>
+                      <th style="width: 5%; text-align: center">
                           Jumlah
                       </th>
-                      <th style="width: 20%; text-align: center">
+                      <th style="width: 10%; text-align: center">
                           Aksi
                       </th>
                   </tr>
@@ -56,7 +56,7 @@
                 @foreach ($items as $item)
                   <tr>
                       {{-- Nama --}}
-                      <td>
+                      <td style="text-align: center">
                          {{$item->id}} 
                       </td>
                       {{-- Username --}}
@@ -64,10 +64,9 @@
                         {{$item->nama_barang}} 
                       </td>
                       {{-- Telepon --}}
-                      <td>
+                      <td style="text-align: center">
                         {{$item->jumlah}} 
                       </td>
-
                       {{-- Aksi --}}
                       <td class="project-actions text-right">
                           <a class="btn btn-info btn-sm" href="{{route('user.edituser',[$item->id])}}">
