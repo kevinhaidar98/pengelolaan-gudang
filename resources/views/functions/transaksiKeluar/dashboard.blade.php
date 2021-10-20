@@ -25,23 +25,25 @@
             <div class="card-body p-2">
                 <div class="row">
                     <label class="col-1">Tanggal :</label>
-                    @csrf
-                    <div class="form-group col-4">
-                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
-                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                <div class="input-group-text">
-                                    <i class="fa fa-calendar"></i>
+                    <form action="{{ route('transaksikeluar.showtransaksikeluardate') }}" method="get" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-inline">
+                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input"
+                                    data-target="#reservationdate" id="reservationdate" name="reservationdate" value="{{ old('reservationdate') }}"/>
+                                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                    <div class="input-group-text">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- /.input group -->
+                            <button class="btn btn-primary m-1" type="submit">Cari</button>
                         </div>
-                        <!-- /.input group -->
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#">
-                            Cari
-                        </a>
-                    </div>
+                    </form>
+                    <a class="col-2 btn btn-primary m-1" href="#">
+                        Tambah Transaksi Keluar
+                    </a>
                 </div>
                 <div class="row">
                     <table class="table table-striped table-hover">
@@ -54,19 +56,19 @@
                                 <th style="width: 10%">
                                     Nama Barang
                                 </th>
-                                <th style="width: 5% text-align: center">
+                                <th style="width: 5%; text-align: center">
                                     Jumlah
                                 </th>
                                 <th style="width: 15%">
                                     Klien
                                 </th>
-                                <th style="width: 10%">
+                                <th style="width: 10%; text-align: center">
                                     Admin
                                 </th>
-                                <th style="width: 10%">
+                                <th style="width: 10%; text-align: center">
                                     Tanggal
                                 </th>
-                                <th style="width: 15% text-align: center">
+                                <th style="width: 5%; text-align: center">
                                     Status
                                 </th>
                                 <th style="width: 20%">
@@ -77,8 +79,10 @@
                         {{-- Table Body --}}
                         @if ($transaksi->count() == 0)
                             <tbody>
-                                <td colspan="6" style="text-align: center;padding-top: 3%">Tidak ada data barang yang dibuat
-                                </td>
+                                <tr>
+                                    <td colspan="8" style="text-align: center;">Tidak ada data barang yang dibuat
+                                    </td>
+                                </tr>
                             @else
                                 @foreach ($transaksi as $item)
                                     <tr>
@@ -103,24 +107,24 @@
                                         </td>
 
                                         {{-- Admin --}}
-                                        <td>
+                                        <td style="text-align: center">
                                             {{ $item->nama_user }}
                                         </td>
 
                                         {{-- Tanggal --}}
-                                        <td>
+                                        <td style="text-align: center">
                                             {{ $item->tanggal }}
                                         </td>
 
-                                        <td>
+                                        <td style="text-align: center">
                                             @if ($item->is_process == 0)
-                                                <div class="btn btn-danger m-1">
-                                                    Belum di proses
-                                                </div>
+                                                <span class="badge badge-danger">
+                                                    Belum diproses
+                                                </span>
                                             @else
-                                                <div class="btn btn-success m-1">
-                                                    Sudah di proses
-                                                </div>
+                                                <span class="badge badge-success">
+                                                    Sudah diproses
+                                                </span>
                                             @endif
                                         </td>
                                         {{-- Aksi --}}

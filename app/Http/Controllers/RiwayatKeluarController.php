@@ -22,14 +22,26 @@ class RiwayatKeluarController extends Controller
     public function showTransaksiKeluarList(Request $request)
     {
         $selection = $request->keyword;
-        $transaksi = DB::table('transaksi')
-                    ->join('users','users.id','=','transaksi.id_user')
-                    ->join('barang','barang.id','=','transaksi.id_barang')
-                    ->select('transaksi.*', 'users.nama as nama_user','barang.nama_barang as nama_barang')
-                    ->where('status','=','1')
-                    ->orderByDesc('tanggal')
-                    ->paginate(10);
-
+        $tanggal = $request->input('reservationdate');
+        //dd($tanggal);
+        if($tanggal){
+            $transaksi = DB::table('transaksi')
+            ->join('users','users.id','=','transaksi.id_user')
+            ->join('barang','barang.id','=','transaksi.id_barang')
+            ->select('transaksi.*', 'users.nama as nama_user','barang.nama_barang as nama_barang')
+            ->where('tanggal','=',$tanggal)
+            ->where('status','=','1')
+            ->orderByDesc('tanggal')
+            ->paginate(10);
+        }else{
+            $transaksi = DB::table('transaksi')
+            ->join('users','users.id','=','transaksi.id_user')
+            ->join('barang','barang.id','=','transaksi.id_barang')
+            ->select('transaksi.*', 'users.nama as nama_user','barang.nama_barang as nama_barang')
+            ->where('status','=','1')
+            ->orderByDesc('tanggal')
+            ->paginate(10);
+        }
         //$barang = Barang::all();
         // // if($selection){
         // //     $riwayat = RiwayatMasuk::where('tanggal_masuk', 'LIKE', "%$selection%")->paginate(10);
@@ -52,6 +64,8 @@ class RiwayatKeluarController extends Controller
         //dd($transaksi);
         return view('functions.transaksiKeluar.dashboard', ['transaksi'=> $transaksi]);
     }
+
+    
 
     public function createRiwayatMasuk(Request $request){
         $validate = Validator::make($request->all(), [
