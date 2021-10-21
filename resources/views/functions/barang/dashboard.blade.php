@@ -30,7 +30,7 @@
                         <a href="{{ route('barang.addbarang') }}" class="btn btn-primary">Tambah Barang Baru</a>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row table-responsive">
                     <table id="tabelbarang" class="table table-striped projects">
                         {{-- Header Table --}}
                         <thead>
@@ -93,7 +93,7 @@
             $("#tabelbarang").DataTable({
                 "responsive": true,
                 "lengthChange": false,
-                "autoWidth": true,
+                "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#tabelbarang_wrapper .col-md-6:eq(0)');
         })

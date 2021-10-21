@@ -55,6 +55,7 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/showtransate',[RiwayatMasukController::class, 'showTransaksiMasukList'])->name('transaksimasuk.showtransaksimasukdate');
         Route::get('/showformtransmasuk',[RiwayatMasukController::class, 'showFormTransaksiMasuk'])->name('transaksimasuk.showformtransaksimasuk');
         Route::post('/createtransaksimasuk',[RiwayatMasukController::class,'createRiwayatMasuk'])->name('transaksimasuk.createtransaksimasuk');
+        Route::get('/prosestransaksimasuk/{id}',[RiwayatMasukController::class,'prosesMasuk'])->name('transaksimasuk.proses');
         // Route::get('/showisigudang/{id}/ruang/{nama_letak}',[StoringController::class, 'showIsiGudang'])->name('gudang.showisigudang');
         // Route::get('/showisigudang/{id}/ruang/{nama_letak}/addisigudang',[StoringController::class, 'addIsiGudang'])->name('gudang.addisigudang');
         // Route::get('/barang/list',[StoringController::class,'getBarangList'])->name('gudang.baranglist');
