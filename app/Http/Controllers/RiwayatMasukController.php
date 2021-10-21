@@ -41,7 +41,7 @@ class RiwayatMasukController extends Controller
             ->where('status','=','0')
             ->orderByDesc('tanggal')
             ->get();
-            dd($transaksi);
+            // dd($transaksi);
         }
         //$barang = Barang::all();
         // // if($selection){
@@ -52,13 +52,13 @@ class RiwayatMasukController extends Controller
         //     foreach($lokasi->barang as $barang){
         //         $barangs[] = $barang;
         //     }
-            
+
         //     // foreach($lokasi->barang as $barang){
         //     //     echo $barang->id_barang;
         //     //     echo $barang->pivot->jumlah;
         //     //     echo $barang->pivot->created_at;
         //     // }
-            
+
         //      dd($barangs);
         //     //$riwayat = Lokasi::paginate(10);
         // // }
@@ -95,9 +95,9 @@ class RiwayatMasukController extends Controller
         }
     }
 
-    public function prosesMasuk(Request $request){
-        $riwayat = RiwayatMasuk::findOrFail($id);
-        return view(' ', ['riwayat_masuk' => $riwayat]);
+    public function prosesMasuk($id){
+        $riwayat = DB::table('transaksi')->where('id',$id)->update(['is_process'=>1]);
+        return redirect()->back();
     }
 
     public function destroyRiwayat($id){
