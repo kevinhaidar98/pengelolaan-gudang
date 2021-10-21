@@ -183,16 +183,16 @@
     </section>
     <script type="text/javascript">
         $(function() {
-        $('#reservationdate').datetimepicker({
-            format: 'YYYY-MM-DD'
-        })
-        $("#tabelmasuk").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": true,
-            "buttons": ["copy", "csv", "excel", "pdf", "print"]
-        }).buttons().container().appendTo('#tabelmasuk_wrapper .col-md-6:eq(0)');
-        })
+                $('#reservationdate').datetimepicker({
+                    format: 'YYYY-MM-DD'
+                })
+                $("#tabelmasuk").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": true,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print"]
+                }).buttons().container().appendTo('#tabelmasuk_wrapper .col-md-6:eq(0)');
+            })
         })
         $('.delete-barang').click(function() {
             var barangId = $(this).data('id');
