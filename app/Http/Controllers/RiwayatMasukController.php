@@ -41,7 +41,6 @@ class RiwayatMasukController extends Controller
             ->where('status','=','0')
             ->orderByDesc('tanggal')
             ->get();
-            //dd($transaksi);
         }
         //$barang = Barang::all();
         // // if($selection){
@@ -52,13 +51,13 @@ class RiwayatMasukController extends Controller
         //     foreach($lokasi->barang as $barang){
         //         $barangs[] = $barang;
         //     }
-            
+
         //     // foreach($lokasi->barang as $barang){
         //     //     echo $barang->id_barang;
         //     //     echo $barang->pivot->jumlah;
         //     //     echo $barang->pivot->created_at;
         //     // }
-            
+
         //      dd($barangs);
         //     //$riwayat = Lokasi::paginate(10);
         // // }

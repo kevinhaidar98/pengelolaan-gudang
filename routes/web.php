@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\RiwayatMasukController;
 use App\Http\Controllers\RiwayatKeluarController;
-use App\Http\Controllers\StoringController; 
+use App\Http\Controllers\StoringController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +21,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 Auth::routes(['register' => false]);
-Route::group(['middleware'=>'auth'], function(){  
+Route::group(['middleware'=>'auth'], function(){
     Route::group(['middleware'=>'superadmin','prefix'=>'users'], function(){
         Route::get('/showuser',[UserController::class, 'showUserList'])->name('user.showuserlist');
         Route::get('/adduser',[UserController::class,'showUserForm'])->name('user.adduser');
@@ -61,7 +61,7 @@ Route::group(['middleware'=>'auth'], function(){
         // Route::get('/barang/list',[StoringController::class,'getBarangList'])->name('gudang.baranglist');
         // Route::post('/storeisigudang',[StoringController::class,'createIsiGudang'])->name('gudang.createisigudang');
         // Route::get('/addbarang',[BarangController::class,'showBarangForm'])->name('barang.addbarang');
-        
+
         // Route::get('/editbarang/{id}',[BarangController::class,'editBarang'])->name('barang.editbarang');
         // Route::post('/updatebarang/{id}',[BarangController::class,'updateBarang'])->name('barang.updatebarang');
         // Route::get('/deletebarang/{id}',[BarangController::class,'destroyBarang'])->name('barang.deletebarang');
