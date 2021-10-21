@@ -22,15 +22,16 @@
                     </button>
                 </div>
             </div>
-            <div class="card-body p-2">
+            <div class="card-body">
                 <div class="row">
-                    <label class="col-1">Tanggal :</label>
-                    <form action="{{ route('transaksikeluar.showtransaksikeluardate') }}" method="get" enctype="multipart/form-data">
+                    <form action="{{ route('transaksikeluar.showtransaksikeluardate') }}" method="get"
+                        enctype="multipart/form-data">
                         @csrf
-                        <div class="form-inline">
+                        <div class="d-flex">
                             <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input"
-                                    data-target="#reservationdate" id="reservationdate" name="reservationdate" value="{{ old('reservationdate') }}"/>
+                                <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"
+                                    id="reservationdate" placeholder="Tanggal" name="reservationdate"
+                                    value="{{ old('reservationdate') }}" />
                                 <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar"></i>
@@ -38,15 +39,18 @@
                                 </div>
                             </div>
                             <!-- /.input group -->
-                            <button class="btn btn-primary m-1" type="submit">Cari</button>
+                            <button class="col-auto btn btn-primary" type="submit">Cari</button>
                         </div>
                     </form>
-                    <a class="col-2 btn btn-primary m-1" href="#">
-                        Tambah Transaksi Keluar
-                    </a>
+                    <div class="col-auto">
+                        <a class="btn btn-primary" href="{{ route('transaksikeluar.showformtransaksikeluar') }}">
+                            Tambah Transaksi Keluar
+                        </a>
+                    </div>
                 </div>
-                <div class="row">
-                    <table class="table table-striped table-hover">
+                <br>
+                <div class="">
+                    <table id="tabelkeluar" class="table table-striped table-hover">
                         {{-- Header Table --}}
                         <thead>
                             <tr>
@@ -163,17 +167,18 @@
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
-        <div class="row">
-            <div class="col-6">
-                <a href="{{ route('barang.addbarang') }}" class="btn btn-primary">Tambah Barang</a>
-            </div>
-        </div>
     </section>
     <script type="text/javascript">
         $(function() {
             $('#reservationdate').datetimepicker({
                 format: 'YYYY-MM-DD'
             })
+            $("#tabelkeluar").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#tabelkeluar_wrapper .col-md-6:eq(0)');
         })
 
         // $('.delete-barang').click(function() {

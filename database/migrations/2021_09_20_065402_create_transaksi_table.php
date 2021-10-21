@@ -21,7 +21,7 @@ class CreateTransaksiTable extends Migration
             $table->foreign('id_user')->references('id')->on('users');
             $table->bigInteger('kode_transaksi');
             $table->integer('jumlah');
-            $table->boolean('status');
+            $table->boolean('status')->default(false);
             $table->boolean('is_process')->default(false);
             $table->string('klien');
             $table->date('tanggal');

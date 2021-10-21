@@ -19,7 +19,7 @@
                     {{session('error')}}
                 </div>
             @endif
-            <form action="{{route('barang.createbarang')}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('barang.createbarang',['state' => $state])}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group {{ $errors->has('nama_barang') ? ' has-danger' : '' }}">
                     <label for="inputName">Nama Barang</label>

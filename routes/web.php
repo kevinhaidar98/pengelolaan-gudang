@@ -68,6 +68,8 @@ Route::group(['middleware'=>'auth'], function(){
     Route::group(['middleware'=>'superadmin','prefix'=>'transaksi-keluar'], function(){
         Route::get('/showtrans',[RiwayatKeluarController::class, 'showTransaksiKeluarList'])->name('transaksikeluar.showtransaksikeluar');
         Route::get('/showtransdate',[RiwayatKeluarController::class, 'showTransaksiKeluarList'])->name('transaksikeluar.showtransaksikeluardate');
+        Route::get('/showformtranskeluar',[RiwayatKeluarController::class, 'showFormTransaksiKeluar'])->name('transaksikeluar.showformtransaksikeluar');
+        Route::post('/createtransaksikeluar',[RiwayatKeluarController::class,'createRiwayatKeluar'])->name('transaksikeluar.createtransaksikeluar');
         // Route::get('/showisigudang/{id}/ruang/{nama_letak}',[StoringController::class, 'showIsiGudang'])->name('gudang.showisigudang');
         // Route::get('/showisigudang/{id}/ruang/{nama_letak}/addisigudang',[StoringController::class, 'addIsiGudang'])->name('gudang.addisigudang');
         // Route::get('/barang/list',[StoringController::class,'getBarangList'])->name('gudang.baranglist');

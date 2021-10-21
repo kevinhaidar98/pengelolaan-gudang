@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -65,26 +66,34 @@ class RiwayatKeluarController extends Controller
         return view('functions.transaksiKeluar.dashboard', ['transaksi'=> $transaksi]);
     }
 
-    
+    public function showFormTransaksiKeluar(Request $request){
+        return view('functions.transaksiKeluar.createTransaksiKeluar');
+    }
 
     public function createRiwayatMasuk(Request $request){
         $validate = Validator::make($request->all(), [
-            'nama_barang'=>'required|min:5',
+            'barang'=>'required',
             'jumlah' => 'required',
-            'tanggal_masuk'=>'required'
+            'klien'=>'required',
+            'reservationdate'=>'required'
         ], [
-            'nama_barang.required'=>'Nama barang harus diisi',
+            'barang.required'=>'Pilih Barang!',
             'jumlah.required' => 'Jumlah harus diisi',
-            'tanggal_masuk.required'=>''
+            'klien.required' => 'Klien harus diisi',
+            'reservationdate.required' => 'Tanggal harus diisi'
         ]);
         if($validate->fails()){
             return redirect()->back()->with('error','Semua field tidak boleh kosong');
         }else{
-            $riwayat = new RiwayatMasuk();
-            $riwayat->nama_barang = $request->nama_barang;
-            $riwayat->jumlah = $request->jumlah;
-            $riwayat->save();
-            return redirect()->route('riwayatMasuk.showRiwayatMasuklist')->with('status', 'Sukses menambahkan data barang');
+            $user = User::findOrFail($request->id_user);
+            $kode = mt_rand(0,10000000000);
+            $barang = $request->barang;
+            $jumlah = $request->jumlah;
+            $status = 1;
+            $klien = $request->klien;
+            $tanggal = $request->reservationdate;
+            $user->transaksi()->attach($barang,['kode_transaksi' => $kode, 'jumlah' => $jumlah, 'status' => $status, 'klien' => $klien, 'tanggal' => $tanggal]);
+            return redirect()->route('transaksimasuk.showtransaksimasuk')->with('status', 'Sukses menambahkan barang');
         }
     }
     

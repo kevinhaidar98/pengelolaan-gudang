@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <table class="table table-striped projects">
+                    <table id="tabelbarang" class="table table-striped projects">
                         {{-- Header Table --}}
                         <thead>
                             <tr>
@@ -89,6 +89,14 @@
 
     </section>
     <script type="text/javascript">
+        $(function() {
+            $("#tabelbarang").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": true,
+                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#tabelbarang_wrapper .col-md-6:eq(0)');
+        })
         $('.delete-barang').click(function() {
             var barangId = $(this).data('id');
             console.log(barangId)

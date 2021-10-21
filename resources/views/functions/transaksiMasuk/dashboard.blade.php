@@ -22,32 +22,40 @@
                     </button>
                 </div>
             </div>
-            <div class="card-body p-0">
-                <div class="row p-2">
-                    <label class="col-1">Tanggal :</label>
+            <div class="card-body">
+                <div class="row">
                     <form action="{{ route('transaksimasuk.showtransaksimasukdate') }}" method="get"
                         enctype="multipart/form-data">
                         @csrf
-                        <div class="form-inline">
-                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"
-                                    id="reservationdate" name="reservationdate" value="{{ old('reservationdate') }}" />
-                                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                    <div class="input-group-text">
-                                        <i class="fa fa-calendar"></i>
+                        <div class="form-group">
+                            <div class="d-flex">
+                                <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                    <input type="text" class="form-control col-auto datetimepicker-input"
+                                        data-target="#reservationdate" id="reservationdate" name="reservationdate"
+                                        value="{{ old('reservationdate') }}" placeholder="Tanggal" />
+                                    <div class="input-group-append" data-target="#reservationdate"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button class="btn btn-primary " type="submit">Cari</button>
                                     </div>
                                 </div>
                             </div>
                             <!-- /.input group -->
-                            <button class="btn btn-primary m-1" type="submit">Cari</button>
                         </div>
                     </form>
-                    <a class="col-2 btn btn-primary m-1" href="{{ route('transaksimasuk.showformtransaksimasuk') }}">
-                        Tambah Transaksi Masuk
-                    </a>
+                    <div class="col-auto">
+                        <a class="btn btn-primary" href="{{ route('transaksimasuk.showformtransaksimasuk') }}">
+                            Tambah Transaksi Masuk
+                        </a>
+                    </div>
                 </div>
-                <div class="row">
-                    <table class="table table-responsive table-striped table-hover">
+                <br>
+                <div class="row table-responsive">
+                    <table id="tabelmasuk" class="table table-striped table-hover">
                         {{-- Header Table --}}
                         <thead>
                             <tr>
@@ -160,22 +168,23 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
-            <!-- /.card-body -->
+        </div>
+        <!-- /.card-body -->
         </div>
         <!-- /.card -->
-        <div class="row">
-            <div class="col-6">
-                <a href="{{ route('barang.addbarang') }}" class="btn btn-primary">Tambah Barang</a>
-            </div>
-        </div>
     </section>
     <script type="text/javascript">
         $(function() {
             $('#reservationdate').datetimepicker({
                 format: 'YYYY-MM-DD'
             })
+            $("#tabelmasuk").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": true,
+                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#tabelmasuk_wrapper .col-md-6:eq(0)');
         })
         $('.delete-barang').click(function() {
             var barangId = $(this).data('id');

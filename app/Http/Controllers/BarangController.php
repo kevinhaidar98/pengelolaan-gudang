@@ -24,15 +24,17 @@ class BarangController extends Controller
         if($selection){
             $barang = Barang::where('nama', 'LIKE', "%$selection%")->paginate(10);
         } else {
-            $barang = Barang::paginate(10);
+            $barang = Barang::get();
         }
         return view('functions.barang.dashboard', ['barang'=> $barang]);
     }
-    public function showBarangForm(){
-        return view('functions.barang.addbarang');
+    public function showBarangForm(Request $request){
+        $state = $request->state;
+        return view('functions.barang.addbarang',['state' => $state]);
     }
 
     public function createBarang(Request $request){
+        $state = $request->state;
         $validate = Validator::make($request->all(), [
             'nama_barang'=>'required|min:5',
         ], [
@@ -44,7 +46,11 @@ class BarangController extends Controller
             $barang = new Barang();
             $barang->nama_barang = $request->nama_barang;
             $barang->save();
-            return redirect()->route('barang.showbaranglist')->with('status', 'Sukses menambahkan data barang');
+            if($state){
+                return redirect()->route('transaksimasuk.showformtransaksimasuk')->with('status', 'Sukses menambahkan data barang');
+            }else {
+                return redirect()->route('barang.showbaranglist')->with('status', 'Sukses menambahkan data barang');
+            }
         }
     }
     

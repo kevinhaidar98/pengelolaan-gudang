@@ -32,7 +32,7 @@ class RiwayatMasukController extends Controller
             ->where('tanggal','=',$tanggal)
             ->where('status','=','0')
             ->orderByDesc('tanggal')
-            ->paginate(10);
+            ->get();
         }else{
             $transaksi = DB::table('transaksi')
             ->join('users','users.id','=','transaksi.id_user')
@@ -40,7 +40,8 @@ class RiwayatMasukController extends Controller
             ->select('transaksi.*', 'users.nama as nama_user','barang.nama_barang as nama_barang')
             ->where('status','=','0')
             ->orderByDesc('tanggal')
-            ->paginate(10);
+            ->get();
+            dd($transaksi);
         }
         //$barang = Barang::all();
         // // if($selection){
@@ -69,8 +70,6 @@ class RiwayatMasukController extends Controller
     }
 
     public function createRiwayatMasuk(Request $request){
-        
-        //dd($request->all());
         $validate = Validator::make($request->all(), [
             'barang'=>'required',
             'jumlah' => 'required',
@@ -94,10 +93,9 @@ class RiwayatMasukController extends Controller
             $user->transaksi()->attach($barang,['kode_transaksi' => $kode, 'jumlah' => $jumlah, 'klien' => $klien, 'tanggal' => $tanggal]);
             return redirect()->route('transaksimasuk.showtransaksimasuk')->with('status', 'Sukses menambahkan barang');
         }
-        
     }
-    
-    public function editRiwayat($id){
+
+    public function prosesMasuk(Request $request){
         $riwayat = RiwayatMasuk::findOrFail($id);
         return view(' ', ['riwayat_masuk' => $riwayat]);
     }

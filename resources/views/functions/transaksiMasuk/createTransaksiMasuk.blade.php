@@ -2,7 +2,11 @@
 @section('title', 'Transaksi Masuk')
 
 @section('content')
-
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Tambah Transaksi Masuk</h3>
@@ -19,7 +23,8 @@
                     {{ session('error') }}
                 </div>
             @endif
-            <form action="{{ route('transaksimasuk.createtransaksimasuk',['id_user' => Auth::user()->id]) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('transaksimasuk.createtransaksimasuk', ['id_user' => Auth::user()->id]) }}"
+                method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label>Pilih Barang</label>
@@ -40,7 +45,7 @@
                 <label for="inputJumlah" class="">Tanggal</label>
                 <div class="input-group" id="reservationdate" data-target-input="nearest">
                     <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"
-                        id="reservationdate" name="reservationdate" value="{{ old('reservationdate') }}" readonly/>
+                        id="reservationdate" name="reservationdate" value="{{ old('reservationdate') }}" readonly />
                     <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                         <div class="input-group-text">
                             <i class="fa fa-calendar"></i>
@@ -50,7 +55,16 @@
                 <br />
                 <input class="btn btn-primary" type="submit" value="Simpan" />
             </form>
-
+            <br>
+            <div class="row">
+                <div class="col-auto">
+                    <a class="btn btn-success" href="{{ route('barang.addbarang', ['state' => 1]) }}">Tambah Barang
+                        Baru</a>
+                </div>
+                <div class="col-auto">
+                    <h6 class="">*Jika barang tidak ditemukan</h6>
+                </div>
+            </div>
             <!-- /.card-body -->
         </div>
 
