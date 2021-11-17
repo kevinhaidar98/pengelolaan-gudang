@@ -43,12 +43,9 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/showisigudang/{id}/ruang/{nama_letak}',[StoringController::class, 'showIsiGudang'])->name('gudang.showisigudang');
         Route::get('/showisigudang/{id}/ruang/{nama_letak}/addisigudang',[StoringController::class, 'addIsiGudang'])->name('gudang.addisigudang');
         Route::get('/barang/list',[StoringController::class,'getBarangList'])->name('gudang.baranglist');
+        Route::get('/editbarang',[StoringController::class,'editIsiGudang'])->name('gudang.editisigudang');
+        Route::post('/updateisigudang',[StoringController::class,'updateIsiGudang'])->name('gudang.updateisigudang');
         Route::post('/storeisigudang',[StoringController::class,'createIsiGudang'])->name('gudang.createisigudang');
-        // Route::get('/addbarang',[BarangController::class,'showBarangForm'])->name('barang.addbarang');
-        // Route::post('/storebarang',[BarangController::class,'createBarang'])->name('barang.createbarang');
-        // Route::get('/editbarang/{id}',[BarangController::class,'editBarang'])->name('barang.editbarang');
-        // Route::post('/updatebarang/{id}',[BarangController::class,'updateBarang'])->name('barang.updatebarang');
-        // Route::get('/deletebarang/{id}',[BarangController::class,'destroyBarang'])->name('barang.deletebarang');
     });
     Route::group(['middleware'=>'superadmin','prefix'=>'transaksi-masuk'], function(){
         Route::get('/showtrans',[RiwayatMasukController::class, 'showTransaksiMasukList'])->name('transaksimasuk.showtransaksimasuk');
@@ -56,30 +53,15 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/showformtransmasuk',[RiwayatMasukController::class, 'showFormTransaksiMasuk'])->name('transaksimasuk.showformtransaksimasuk');
         Route::post('/createtransaksimasuk',[RiwayatMasukController::class,'createRiwayatMasuk'])->name('transaksimasuk.createtransaksimasuk');
         Route::get('/prosestransaksimasuk/{id}',[RiwayatMasukController::class,'prosesMasuk'])->name('transaksimasuk.proses');
-        // Route::get('/showisigudang/{id}/ruang/{nama_letak}',[StoringController::class, 'showIsiGudang'])->name('gudang.showisigudang');
-        // Route::get('/showisigudang/{id}/ruang/{nama_letak}/addisigudang',[StoringController::class, 'addIsiGudang'])->name('gudang.addisigudang');
-        // Route::get('/barang/list',[StoringController::class,'getBarangList'])->name('gudang.baranglist');
-        // Route::post('/storeisigudang',[StoringController::class,'createIsiGudang'])->name('gudang.createisigudang');
-        // Route::get('/addbarang',[BarangController::class,'showBarangForm'])->name('barang.addbarang');
-
-        // Route::get('/editbarang/{id}',[BarangController::class,'editBarang'])->name('barang.editbarang');
-        // Route::post('/updatebarang/{id}',[BarangController::class,'updateBarang'])->name('barang.updatebarang');
-        // Route::get('/deletebarang/{id}',[BarangController::class,'destroyBarang'])->name('barang.deletebarang');
+        Route::get('/destroytransaksimasuk/{id}',[RiwayatMasukController::class,'destroyMasuk'])->name('transaksimasuk.destroy');
     });
     Route::group(['middleware'=>'superadmin','prefix'=>'transaksi-keluar'], function(){
         Route::get('/showtrans',[RiwayatKeluarController::class, 'showTransaksiKeluarList'])->name('transaksikeluar.showtransaksikeluar');
         Route::get('/showtransdate',[RiwayatKeluarController::class, 'showTransaksiKeluarList'])->name('transaksikeluar.showtransaksikeluardate');
         Route::get('/showformtranskeluar',[RiwayatKeluarController::class, 'showFormTransaksiKeluar'])->name('transaksikeluar.showformtransaksikeluar');
         Route::post('/createtransaksikeluar',[RiwayatKeluarController::class,'createRiwayatKeluar'])->name('transaksikeluar.createtransaksikeluar');
-        // Route::get('/showisigudang/{id}/ruang/{nama_letak}',[StoringController::class, 'showIsiGudang'])->name('gudang.showisigudang');
-        // Route::get('/showisigudang/{id}/ruang/{nama_letak}/addisigudang',[StoringController::class, 'addIsiGudang'])->name('gudang.addisigudang');
-        // Route::get('/barang/list',[StoringController::class,'getBarangList'])->name('gudang.baranglist');
-        // Route::post('/storeisigudang',[StoringController::class,'createIsiGudang'])->name('gudang.createisigudang');
-        // Route::get('/addbarang',[BarangController::class,'showBarangForm'])->name('barang.addbarang');
-        // Route::post('/storebarang',[BarangController::class,'createBarang'])->name('barang.createbarang');
-        // Route::get('/editbarang/{id}',[BarangController::class,'editBarang'])->name('barang.editbarang');
-        // Route::post('/updatebarang/{id}',[BarangController::class,'updateBarang'])->name('barang.updatebarang');
-        // Route::get('/deletebarang/{id}',[BarangController::class,'destroyBarang'])->name('barang.deletebarang');
+        Route::get('/prosestransaksikeluar/{id}',[RiwayatKeluarController::class,'prosesKeluar'])->name('transaksikeluar.proses');
+        Route::get('/destroytransaksikeluar/{id}',[RiwayatKeluarController::class,'destroyKeluar'])->name('transaksikeluar.destroy');
     });
 });
 

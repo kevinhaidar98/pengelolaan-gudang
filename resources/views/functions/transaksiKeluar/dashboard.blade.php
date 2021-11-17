@@ -1,6 +1,7 @@
 @extends('layout.index',['activePage'=>'transaksiKeluar'])
 @section('title', 'Dasboard Transaksi Keluar')
-
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
 @section('content')
     @if (session('status'))
         <div class="alert alert-success">
@@ -49,45 +50,44 @@
                     </div>
                 </div>
                 <br>
-                <div class="">
-                    <table id="tabelkeluar" class="table table-striped table-hover">
-                        {{-- Header Table --}}
-                        <thead>
-                            <tr>
-                                <th style="width: 10%">
-                                    Kode Transaksi
-                                </th>
-                                <th style="width: 10%">
-                                    Nama Barang
-                                </th>
-                                <th style="width: 5%; text-align: center">
-                                    Jumlah
-                                </th>
-                                <th style="width: 15%">
-                                    Klien
-                                </th>
-                                <th style="width: 10%; text-align: center">
-                                    Admin
-                                </th>
-                                <th style="width: 10%; text-align: center">
-                                    Tanggal
-                                </th>
-                                <th style="width: 5%; text-align: center">
-                                    Status
-                                </th>
-                                <th style="width: 20%">
-                                    Aksi
-                                </th>
-                            </tr>
-                        </thead>
-                        {{-- Table Body --}}
-                        @if ($transaksi->count() == 0)
-                            <tbody>
+                @if ($transaksi->count() == 0)
+                    <div class="alert alert-warning">
+                        Tidak ada data transaksi yang dibuat
+                    </div>
+                @else
+                    <div>
+                        <table id="tabelkeluar" class="table table-striped table-hover ">
+                            {{-- Header Table --}}
+                            <thead>
                                 <tr>
-                                    <td colspan="8" style="text-align: center;">Tidak ada data barang yang dibuat
-                                    </td>
+                                    <th style="width: 10%">
+                                        Kode Transaksi
+                                    </th>
+                                    <th style="width: 10%">
+                                        Nama Barang
+                                    </th>
+                                    <th style="width: 5%; text-align: center">
+                                        Jumlah
+                                    </th>
+                                    <th style="width: 15%">
+                                        Klien
+                                    </th>
+                                    <th style="width: 10%; text-align: center">
+                                        Admin
+                                    </th>
+                                    <th style="width: 10%; text-align: center">
+                                        Tanggal
+                                    </th>
+                                    <th style="width: 5%; text-align: center">
+                                        Status
+                                    </th>
+                                    <th style="width: 20%">
+                                        Aksi
+                                    </th>
                                 </tr>
-                            @else
+                            </thead>
+                            {{-- Table Body --}}
+                            <tbody>
                                 @foreach ($transaksi as $item)
                                     <tr>
                                         {{-- Kode Transaksi --}}
@@ -136,21 +136,20 @@
                                             <div class="row">
                                                 @if ($item->is_process == 0)
                                                     <a class="col btn btn-info btn-sm m-1"
-                                                        href="{{ route('barang.editbarang', [$item->id]) }}">
+                                                        href="{{ route('transaksikeluar.proses', [$item->id]) }}">
                                                         <i class="fas fa-check-circle">
                                                         </i>
                                                         Proses
                                                     </a>
                                                 @else
-                                                    <a class="col btn btn-secondary btn-sm m-1 disabled"
-                                                        href="{{ route('barang.editbarang', [$item->id]) }}">
+                                                    <a class="col btn btn-secondary btn-sm m-1 disabled">
                                                         <i class="fas fa-check-circle">
                                                         </i>
                                                         Proses
                                                     </a>
                                                 @endif
-                                                <a class="col btn btn-danger btn-sm delete-barang m-1"
-                                                    href="{{ route('barang.deletebarang', [$item->id]) }}">
+                                                <a class="col btn btn-danger btn-sm m-1 delete-barang"
+                                                    href="{{ route('transaksikeluar.destroy', [$item->id]) }}">
                                                     <i class="fas fa-trash">
                                                     </i>
                                                     Delete
@@ -159,10 +158,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                        @endif
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
             </div>
             <!-- /.card-body -->
         </div>
@@ -177,7 +176,7 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+                "buttons": ["excel", "pdf", "print"]
             }).buttons().container().appendTo('#tabelkeluar_wrapper .col-md-6:eq(0)');
         })
 

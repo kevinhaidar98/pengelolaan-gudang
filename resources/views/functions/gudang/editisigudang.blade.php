@@ -1,11 +1,11 @@
-@extends('layout.index',['activePage'=>'user'])
-@section('title', 'Tambah Isi Gudang Ruang - ' . request()->route('nama_letak'))
+@extends('layout.index',['activePage'=>'gudang'])
+@section('title', 'Edit Isi Gudang')
 
 @section('content')
     
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Tambah Isi Gudang</h3>
+            <h3 class="card-title">Edit Isi Gudang</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -20,17 +20,20 @@
                 </div>
             @endif
             <form
-                action="{{ route('gudang.createisigudang', ['id_lokasi' => request()->route('id'), 'nama_letak' => request()->route('nama_letak')]) }}"
+                action="{{ route('gudang.updateisigudang', ['id' => $data[0]->id, 'id_barang' => $data[0]->id_barang, 'id_lokasi' => $data[0]->id_lokasi]) }}"
                 method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label>Pilih Barang</label>
-                    <select name="barang" style="width: 100%" id="barang" class="form-control"></select>
+                    {{-- <label>Pilih Barang</label>
+                    <select name="barang" style="width: 100%" id="barang" class="form-control" disabled></select> --}}
+                    <label for="inputName">Nama Barang</label>
+                    <input class="form-control {{ $errors->has('nama_barang') ? ' is-invalid' : '' }}"
+                        value="{{ $data[0]->nama_barang }}" placeholder="Jumlah" type="text" name="nama_barang" id="nama_barang" disabled/>
                 </div>
                 <div class="form-group {{ $errors->has('jumlah') ? ' has-danger' : '' }}">
                     <label for="inputName">Jumlah</label>
                     <input class="form-control {{ $errors->has('jumlah') ? ' is-invalid' : '' }}"
-                        value="{{ old('jumlah') }}" placeholder="Jumlah" type="number" name="jumlah" id="jumlah" />
+                        value="{{ $data[0]->jumlah }}" placeholder="Jumlah" type="number" name="jumlah" id="jumlah" />
                     @include('layout.alert',['field'=> 'jumlah'])
                 </div>
                 <input class="btn btn-primary" type="submit" value="Simpan" />

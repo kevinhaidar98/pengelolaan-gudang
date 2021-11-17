@@ -40,6 +40,7 @@ class StoringController extends Controller
         $barangs = [];
         foreach ($lokasi->barang as $barang) {
             $barang['jumlah'] = $barang->pivot->jumlah;
+            $barang['id_lokasi'] = $barang->pivot->id_lokasi;
             array_push($barangs, $barang);
         }
         //dd($barangs);
@@ -70,20 +71,75 @@ class StoringController extends Controller
     {
         //dd($request);
         $validate = Validator::make($request->all(), [
-            'barang'=>'required',
+            'barang' => 'required',
             'jumlah' => 'required'
         ], [
-            'barang.required'=>'Pilih Barang!',
+            'barang.required' => 'Pilih Barang!',
             'jumlah.required' => 'Jumlah harus diisi'
         ]);
-        if($validate->fails()){
-            return redirect()->back()->with('error','Semua field tidak boleh kosong');
-        }else{
+        if ($validate->fails()) {
+            return redirect()->back()->with('error', 'Semua field tidak boleh kosong');
+        } else {
             $lokasi = Lokasi::findOrFail($request->id_lokasi);
             $barang = $request->barang;
             $jumlah = $request->jumlah;
-            $lokasi->barang()->attach($barang,['jumlah' => $jumlah]);
-            return redirect()->route('gudang.showisigudang',['id' => $request->id_lokasi,'nama_letak' => $request->nama_letak])->with('status', 'Sukses menambahkan barang');
+            $lokasi->barang()->attach($barang, ['jumlah' => $jumlah]);
+            return redirect()->route('gudang.showisigudang', ['id' => $request->id_lokasi, 'nama_letak' => $request->nama_letak])->with('status', 'Sukses menambahkan barang');
         }
+    }
+    public function editIsiGudang(Request $request)
+    {
+        // $coba = $request;
+        // dd($coba);
+        $data = DB::table('lokasi_barang')
+            ->join('barang', 'barang.id', '=', 'lokasi_barang.id_barang')
+            ->select('lokasi_barang.*', 'barang.nama_barang as nama_barang')
+            ->where('id_lokasi', $request->id_lokasi)
+            ->where('id_barang', $request->id_barang)
+            ->get();
+
+        // $data = DB::table('lokasi_barang')
+        //     ->select('lokasi_barang.*')
+        //     ->where('id_lokasi', $request->id_lokasi)
+        //     ->where('id_barang', $request->id_barang)
+        //     ->get();
+        //dd($data);
+        return view('functions.gudang.editisigudang', ['data' => $data]);
+    }
+
+    public function updateIsiGudang(Request $request)
+    {
+        //dd($request);
+        $check = DB::table('lokasi_barang')
+            ->select('lokasi_barang.*')
+            ->where('id_lokasi', $request->id_lokasi)
+            ->get();
+
+        $jumlah = 0;
+
+        foreach ($check as $data) {
+            $jumlah += $data->jumlah;
+        }
+
+        $checkJumlah = DB::table('lokasi_barang')
+            ->join('lokasi', 'lokasi.id', '=', 'lokasi_barang.id_lokasi')
+            ->select('lokasi_barang.*', 'lokasi.nama_letak as nama_lokasi')
+            ->where('id_lokasi', $request->id_lokasi)
+            ->where('id_barang', $request->id_barang)
+            ->get();
+
+        //dd($checkJumlah[0]);
+            
+        $temp = $jumlah - $checkJumlah[0]->jumlah + $request->jumlah;
+        
+        //dd($temp);
+        if ($temp > 20) {
+            $temp = 0;
+            return redirect()->back()->with('error', 'Letak Penuh! Gunakan letak yang memiliki ruang kosong');
+        } else {
+            $update = DB::table('lokasi_barang')->where('id',$request->id)->update(['jumlah' => $request->jumlah]);
+            return redirect()->route('gudang.showisigudang', ['id' => $checkJumlah[0]->id_lokasi, 'nama_letak' => $checkJumlah[0]->nama_lokasi])->with('status', 'Berhasil Update Barang Pada Gudang');
+        }
+
     }
 }

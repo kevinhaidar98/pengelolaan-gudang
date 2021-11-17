@@ -69,10 +69,10 @@
                       </td>
                       {{-- Aksi --}}
                       <td class="project-actions text-right">
-                          <a class="btn btn-info btn-sm" href="{{route('user.edituser',[$item->id])}}">
+                          <a class="btn btn-info btn-sm" href="{{route('gudang.editisigudang',['id_barang' => $item->id,'id_lokasi' => $item->id_lokasi])}}">
                               <i class="fas fa-pencil-alt">
                               </i>
-                              Edit
+                              Update
                           </a>
                           <a class="btn btn-danger btn-sm delete-user" href="{{route('user.deleteuser',[$item->id])}}">
                               <i class="fas fa-trash">

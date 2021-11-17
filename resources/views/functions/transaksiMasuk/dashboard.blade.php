@@ -1,6 +1,7 @@
 @extends('layout.index',['activePage'=>'transaksiMasuk'])
 @section('title', 'Dasboard Transaksi Masuk')
-
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
 @section('content')
     @if (session('status'))
         <div class="alert alert-success">
@@ -100,11 +101,6 @@
                                             {{ $item->nama_barang }}
                                         </td>
 
-                                        {{-- Nama Barang --}}
-                                        <td>
-                                            {{ $item->nama_barang }}
-                                        </td>
-
                                         {{-- Jumlah --}}
                                         <td style="text-align: center">
                                             {{ $item->jumlah }}
@@ -118,6 +114,10 @@
                                         {{-- Admin --}}
                                         <td style="text-align: center">
                                             {{ $item->nama_user }}
+                                        </td>
+
+                                        <td style="text-align: center">
+                                            {{ $item->tanggal }}
                                         </td>
 
                                         <td style="text-align: center">
@@ -148,8 +148,8 @@
                                                         Proses
                                                     </a>
                                                 @endif
-                                                <a class="col btn btn-danger btn-sm delete-barang m-1"
-                                                    href="{{ route('barang.deletebarang', [$item->id]) }}">
+                                                <a class="col btn btn-danger btn-sm delete-masuk m-1"
+                                                    href="{{ route('transaksimasuk.destroy', [$item->id]) }}">
                                                     <i class="fas fa-trash">
                                                     </i>
                                                     Delete
@@ -177,24 +177,39 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": true,
-                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+                "buttons": ["excel", "pdf", "print"]
             }).buttons().container().appendTo('#tabelmasuk_wrapper .col-md-6:eq(0)');
-        });
-        $('.delete-barang').click(function() {
-            var barangId = $(this).data('id');
-            console.log(barangId)
-            event.preventDefault();
-            swal({
-                title: 'Yakin ingin menghapus data?',
-                text: 'Data yang sudah dihapus tidak akan bisa dikembalikan',
-                icon: 'warning',
-                buttons: ["Tidak", "Ya"],
-            }).then(function(value) {
-                if (value) {
-                    window.location.href = "deleteuser/" + barangId;
-                }
+            $('.delete-masuk').click(function() {
+                var transId = $(this).data('id');
+                console.log(transId)
+                event.preventDefault();
+                swal({
+                    title: 'Yakin ingin menghapus data?',
+                    text: 'Data yang sudah dihapus tidak akan bisa dikembalikan',
+                    icon: 'warning',
+                    buttons: ["Tidak", "Ya"],
+                }).then(function(value) {
+                    if (value) {
+                        window.location.href = "destroytransaksimasuk/" + userId;
+                    }
+                });
             });
-        });
-    });
-</script>
+        })
+        // $('.delete-barang').click(function() {
+        // var barangId = $(this).data('id');
+        // console.log(barangId)
+        // event.preventDefault();
+        // swal({
+        //     title: 'Yakin ingin menghapus data?',
+        //     text: 'Data yang sudah dihapus tidak akan bisa dikembalikan',
+        //     icon: 'warning',
+        //     buttons: ["Tidak", "Ya"],
+        // }).then(function(value) {
+        //     if (value) {
+        //         window.location.href = "deleteuser/" + barangId;
+        //     }
+        // });
+        // });
+        // });
+    </script>
 @endsection

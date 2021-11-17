@@ -70,7 +70,7 @@ class RiwayatKeluarController extends Controller
         return view('functions.transaksiKeluar.createTransaksiKeluar');
     }
 
-    public function createRiwayatMasuk(Request $request){
+    public function createRiwayatKeluar(Request $request){
         $validate = Validator::make($request->all(), [
             'barang'=>'required',
             'jumlah' => 'required',
@@ -93,18 +93,18 @@ class RiwayatKeluarController extends Controller
             $klien = $request->klien;
             $tanggal = $request->reservationdate;
             $user->transaksi()->attach($barang,['kode_transaksi' => $kode, 'jumlah' => $jumlah, 'status' => $status, 'klien' => $klien, 'tanggal' => $tanggal]);
-            return redirect()->route('transaksimasuk.showtransaksimasuk')->with('status', 'Sukses menambahkan barang');
+            return redirect()->route('transaksikeluar.showtransaksikeluar')->with('status', 'Sukses menambahkan barang');
         }
     }
     
-    public function editRiwayat($id){
-        $riwayat = RiwayatMasuk::findOrFail($id);
-        return view(' ', ['riwayat_masuk' => $riwayat]);
+    public function prosesKeluar($id){
+        $riwayat = DB::table('transaksi')->where('id',$id)->update(['is_process'=>1]);
+        return redirect()->back();
     }
 
-    public function destroyRiwayat($id){
-        $riwayat = RiwayatMasuk::findOrFail($id);
+    public function destroyKeluar($id){
+        $riwayat = DB::table('transaksi')->where('id',$id);
         $riwayat->delete();
-        return redirect()->back()->with('status', 'Sukses menghapus data barang');
+        return redirect()->back()->with('status', 'Sukses menghapus Transaksi Keluar');
     }
 }

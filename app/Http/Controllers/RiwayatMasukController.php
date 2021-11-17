@@ -90,7 +90,7 @@ class RiwayatMasukController extends Controller
             $klien = $request->klien;
             $tanggal = $request->reservationdate;
             $user->transaksi()->attach($barang,['kode_transaksi' => $kode, 'jumlah' => $jumlah, 'klien' => $klien, 'tanggal' => $tanggal]);
-            return redirect()->route('transaksimasuk.showtransaksimasuk')->with('status', 'Sukses menambahkan barang');
+            return redirect()->route('transaksimasuk.showtransaksimasuk')->with('status', 'Sukses menambahkan transaksi barang masuk');
         }
     }
 
@@ -99,9 +99,9 @@ class RiwayatMasukController extends Controller
         return redirect()->back();
     }
 
-    public function destroyRiwayat($id){
-        $riwayat = RiwayatMasuk::findOrFail($id);
+    public function destroyMasuk($id){
+        $riwayat = DB::table('transaksi')->where('id',$id);
         $riwayat->delete();
-        return redirect()->back()->with('status', 'Sukses menghapus data barang');
+        return redirect()->back()->with('status', 'Sukses menghapus Transaksi Masuk');
     }
 }

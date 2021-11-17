@@ -104,7 +104,7 @@
         $(document).ready(function() {
             $('#barang').select2({
                 ajax: {
-                    url: 'http://127.0.0.1:8000/gudang/barang/list',
+                    url: 'http://web.ducraft.online/gudang/barang/list',
                     delay: 500,
                     processResults: function(data) {
                         return {
