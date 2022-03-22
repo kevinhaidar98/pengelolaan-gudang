@@ -20,20 +20,24 @@ class BarangController extends Controller
 
     public function showBarangList(Request $request)
     {
+        //menampilkan letak barang yang dicari
         $selection = $request->keyword;
         if($selection){
             $barang = Barang::where('nama', 'LIKE', "%$selection%")->paginate(10);
         } else {
+            //menampilkan keseluruhan barang
             $barang = Barang::get();
         }
         return view('functions.barang.dashboard', ['barang'=> $barang]);
     }
     public function showBarangForm(Request $request){
+        //menampilkan form tambah barang
         $state = $request->state;
         return view('functions.barang.addbarang',['state' => $state]);
     }
 
     public function createBarang(Request $request){
+        //menambah master barang
         $state = $request->state;
         $validate = Validator::make($request->all(), [
             'nama_barang'=>'required|min:5',
@@ -55,11 +59,13 @@ class BarangController extends Controller
     }
     
     public function editBarang($id){
+        //menampilkan form barang yg akan diubah
         $barang = Barang::findOrFail($id);
         return view('functions.barang.editbarang', ['barang' => $barang]);
     }
 
     public function updateBarang(Request $request, $id){
+        //mengubah master barang
         $validate = Validator::make($request->all(), [
             'nama_barang'=>'required|min:5'
         ], [
@@ -76,6 +82,7 @@ class BarangController extends Controller
     }
 
     public function destroyBarang($id){
+        //hapus salah satu master barang
         $barang = Barang::findOrFail($id);
         $barang->delete();
         return redirect()->back()->with('status', 'Sukses menghapus data barang');

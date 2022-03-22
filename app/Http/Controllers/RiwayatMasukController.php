@@ -22,8 +22,8 @@ class RiwayatMasukController extends Controller
 
     public function showTransaksiMasukList(Request $request)
     {
+        //Menampilkan list barang masuk
         $tanggal = $request->input('reservationdate');
-        //dd($tanggal);
         if($tanggal){
             $transaksi = DB::table('transaksi')
             ->join('users','users.id','=','transaksi.id_user')
@@ -42,33 +42,15 @@ class RiwayatMasukController extends Controller
             ->orderByDesc('tanggal')
             ->get();
         }
-        //$barang = Barang::all();
-        // // if($selection){
-        // //     $riwayat = RiwayatMasuk::where('tanggal_masuk', 'LIKE', "%$selection%")->paginate(10);
-        // // } else {
-        //     $lokasi = Lokasi::with('barang')->find(1);
-        //     $barangs = [];
-        //     foreach($lokasi->barang as $barang){
-        //         $barangs[] = $barang;
-        //     }
-
-        //     // foreach($lokasi->barang as $barang){
-        //     //     echo $barang->id_barang;
-        //     //     echo $barang->pivot->jumlah;
-        //     //     echo $barang->pivot->created_at;
-        //     // }
-
-        //      dd($barangs);
-        //     //$riwayat = Lokasi::paginate(10);
-        // // }
-        //dd($transaksi);
         return view('functions.transaksiMasuk.dashboard', ['transaksi'=> $transaksi]);
     }
     public function showFormTransaksiMasuk(Request $request){
+        //menampilkan halaman form tambah transaksi masuk
         return view('functions.transaksiMasuk.createTransaksiMasuk');
     }
 
     public function createRiwayatMasuk(Request $request){
+        //menyimpan hasil masukan pengguna kedalam database
         $validate = Validator::make($request->all(), [
             'barang'=>'required',
             'jumlah' => 'required',
@@ -95,11 +77,13 @@ class RiwayatMasukController extends Controller
     }
 
     public function prosesMasuk($id){
+        //mengubah status transaksi
         $riwayat = DB::table('transaksi')->where('id',$id)->update(['is_process'=>1]);
         return redirect()->back();
     }
 
     public function destroyMasuk($id){
+        //menghapus transaksi
         $riwayat = DB::table('transaksi')->where('id',$id);
         $riwayat->delete();
         return redirect()->back()->with('status', 'Sukses menghapus Transaksi Masuk');

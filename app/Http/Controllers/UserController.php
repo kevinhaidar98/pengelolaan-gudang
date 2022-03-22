@@ -19,6 +19,7 @@ class UserController extends Controller
     }
 
     public function showUserList(Request $request){
+        //menampilkan list pengguna
         $selection = $request->keyword;
         if($selection){
             $user = User::where('nama', 'LIKE', "%$selection%")->paginate(10);
@@ -27,14 +28,14 @@ class UserController extends Controller
         }
         return view('functions.users.dashboard', ['users'=> $user]);
     }
-    
-    
 
     public function showUserForm(){
+        //menampilkan form untuk menambah pengguna
         return view('functions.users.adduser');
     }
 
     public function createUser(Request $request){
+        //menyimpan hasil masukan form kedalam database
         $validate = Validator::make($request->all(), [
             'nama' => 'required',
             'username'=>'required|min:5',
@@ -66,17 +67,20 @@ class UserController extends Controller
     }
     
     public function editUser($id){
+        //menampilkan form untuk mengubah pengguna
         $user = User::findOrFail($id);
         return view('functions.users.edituser', ['user' => $user]);
     }
 
     public function destroyUser($id){
+        //menghapus pengguna
         $user = User::findOrFail($id);
         $user->delete();
         return redirect()->back()->with('status', 'Sukses menghapus data pengguna');
     }
 
     public function updateUser(Request $request, $id){
+        //menyimpan hasil dari masukan ubahan pengguna kedalam database
         $validate = Validator::make($request->all(), [
             'nama' => 'required',
             'username'=>'required|min:5',

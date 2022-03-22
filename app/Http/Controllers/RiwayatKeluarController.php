@@ -22,9 +22,9 @@ class RiwayatKeluarController extends Controller
 
     public function showTransaksiKeluarList(Request $request)
     {
+        //menampilkan list transaksi barang keluar
         $selection = $request->keyword;
         $tanggal = $request->input('reservationdate');
-        //dd($tanggal);
         if($tanggal){
             $transaksi = DB::table('transaksi')
             ->join('users','users.id','=','transaksi.id_user')
@@ -43,34 +43,16 @@ class RiwayatKeluarController extends Controller
             ->orderByDesc('tanggal')
             ->paginate(10);
         }
-        //$barang = Barang::all();
-        // // if($selection){
-        // //     $riwayat = RiwayatMasuk::where('tanggal_masuk', 'LIKE', "%$selection%")->paginate(10);
-        // // } else {
-        //     $lokasi = Lokasi::with('barang')->find(1);
-        //     $barangs = [];
-        //     foreach($lokasi->barang as $barang){
-        //         $barangs[] = $barang;
-        //     }
-            
-        //     // foreach($lokasi->barang as $barang){
-        //     //     echo $barang->id_barang;
-        //     //     echo $barang->pivot->jumlah;
-        //     //     echo $barang->pivot->created_at;
-        //     // }
-            
-        //      dd($barangs);
-        //     //$riwayat = Lokasi::paginate(10);
-        // // }
-        //dd($transaksi);
         return view('functions.transaksiKeluar.dashboard', ['transaksi'=> $transaksi]);
     }
 
     public function showFormTransaksiKeluar(Request $request){
+        //menampilkan halaman form tambah transaksi keluar
         return view('functions.transaksiKeluar.createTransaksiKeluar');
     }
 
     public function createRiwayatKeluar(Request $request){
+        //menyimpan hasil masukan pengguna ke dalam database
         $validate = Validator::make($request->all(), [
             'barang'=>'required',
             'jumlah' => 'required',
@@ -98,11 +80,13 @@ class RiwayatKeluarController extends Controller
     }
     
     public function prosesKeluar($id){
+        //mengubah status transaksi keluar
         $riwayat = DB::table('transaksi')->where('id',$id)->update(['is_process'=>1]);
         return redirect()->back();
     }
 
     public function destroyKeluar($id){
+        //menghapus transaksi keluar
         $riwayat = DB::table('transaksi')->where('id',$id);
         $riwayat->delete();
         return redirect()->back()->with('status', 'Sukses menghapus Transaksi Keluar');
